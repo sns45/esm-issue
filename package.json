@@ -1,28 +1,26 @@
 {
   "name": "esm-issue",
-  "thirdparty": "",
   "version": "0.2.0",
-  "repository": "",
-  "license": "ISC",
   "private": false,
   "scripts": {
     "build": "rimraf dist && npm run build:server -- --silent && npm run build:client -- --no-clean --silent",
+    "test:unit": "vue-cli-service test:unit",
+    "test:e2e": "npm run build && npm run start & wait-on http://localhost:8080 && vue-cli-service test:e2e --url=http://localhost:8080 && pkill -SIGINT node",
     "lint": "vue-cli-service lint",
     "build:client": "vue-cli-service build",
     "build:server": "cross-env WEBPACK_TARGET=node vue-cli-service build",
+    "docker:run": "docker build -t foo . && docker run -p 8080:8080 foo",
+    "docker:serve": " docker build -t foo -f Dockerfile.dev . && docker run -p 8080:8080 -p 8081:8081 -v /app/node_modules -v $(pwd):/app -t foo",
     "serve:client": "vue-cli-service serve",
     "start": "cross-env NODE_ENV=production node scripts/start",
     "start:dev": "node scripts/start",
-    "test:e2e": "npm run build && npm run start & wait-on http://localhost:8080 && vue-cli-service test:e2e --url=http://localhost:8080 && pkill -SIGINT node",
-    "test:e2e:headless": "npm run build && npm run start & wait-on http://localhost:8080 && vue-cli-service test:e2e --headless --url=http://localhost:8080 && pkill -SIGINT node",
-    "test:unit": "vue-cli-service test:unit",
-    "docker:run": "docker build -t foo . && docker run -p 8080:8080 foo",
-    "docker:serve": " docker build -t foo -f Dockerfile.dev . && docker run -p 8080:8080 -p 8081:8081 -v /app/node_modules -v $(pwd):/app -t foo"
+    "test:e2e:headless": "npm run build && npm run start & wait-on http://localhost:8080 && vue-cli-service test:e2e --headless --url=http://localhost:8080 && pkill -SIGINT node"
   },
   "dependencies": {
-    "@vue/cli-plugin-babel": "3.4.0",
+    "@vue/cli-plugin-babel": "^4.5.8",
     "axios": "0.18.0",
     "axios-jsonp": "1.0.2",
+    "core-js": "^3.6.5",
     "cross-env": "5.2.0",
     "express": "4.16.4",
     "http-proxy-middleware": "0.19.1",
@@ -45,31 +43,22 @@
     "xmldom": "0.1.27"
   },
   "devDependencies": {
-    "@vue/cli-plugin-eslint": "3.4.0",
-    "@vue/cli-service": "3.4.0",
-    "@vue/eslint-config-airbnb": "4.0.0",
+    "@vue/cli-plugin-eslint": "^4.5.8",
+    "@vue/cli-service": "^4.5.8",
+    "@vue/eslint-config-airbnb": "^5.0.2",
     "babel-core": "7.0.0-bridge.0",
-    "babel-eslint": "10.0.1",
+    "babel-eslint": "^10.1.0",
     "babel-jest": "23.6.0",
     "babel-plugin-component": "1.1.1",
-    "eslint": "5.8.0",
-    "eslint-plugin-vue": "5.0.0",
+    "eslint": "^6.7.2",
     "eslint-plugin-cypress": "2.2.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-vue": "^6.2.2",
     "lint-staged": "7.2.2",
     "node-sass": "4.14.1",
     "sass-loader": "7.1.0",
     "vue-template-compiler": "2.6.8",
     "wait-on": "3.1.0"
-  },
-  "optionalDependencies": {
-    "@vue/cli-plugin-e2e-cypress": "3.4.0",
-    "@vue/cli-plugin-unit-jest": "3.4.0",
-    "@vue/test-utils": "1.0.0-beta.29",
-    "mocha": "6.0.2",
-    "mocha-allure-reporter": "1.4.0",
-    "jest-allure": "0.1.1",
-    "cypress-multi-reporters": "1.4.0",
-    "cypress-wait-until": "1.6.1"
   },
   "eslintConfig": {
     "root": true,
@@ -129,30 +118,6 @@
         {
           "baseIndent": 1
         }
-      ],
-      "vue/singleline-html-element-content-newline": [
-        "error",
-        {
-          "ignoreWhenNoAttributes": true,
-          "ignoreWhenEmpty": true,
-          "ignores": [
-            "pre",
-            "textarea",
-            "small"
-          ]
-        }
-      ],
-      "vue/multiline-html-element-content-newline": [
-        "error",
-        {
-          "ignoreWhenNoAttributes": true,
-          "ignoreWhenEmpty": true,
-          "ignores": [
-            "pre",
-            "textarea",
-            "small"
-          ]
-        }
       ]
     },
     "parserOptions": {
@@ -201,6 +166,7 @@
   "gitHooks": {
     "pre-commit": "lint-staged"
   },
+  "license": "ISC",
   "lint-staged": {
     "*.js": [
       "vue-cli-service lint",
@@ -210,5 +176,17 @@
       "vue-cli-service lint",
       "git add"
     ]
-  }
+  },
+  "optionalDependencies": {
+    "@vue/cli-plugin-e2e-cypress": "^4.5.8",
+    "@vue/cli-plugin-unit-jest": "^4.5.8",
+    "@vue/test-utils": "1.0.0-beta.29",
+    "cypress-multi-reporters": "1.4.0",
+    "cypress-wait-until": "1.6.1",
+    "jest-allure": "0.1.1",
+    "mocha": "6.0.2",
+    "mocha-allure-reporter": "1.4.0"
+  },
+  "repository": "",
+  "thirdparty": ""
 }
