@@ -1,12 +1,17 @@
-import { shallowMount } from '@vue/test-utils';
-import HelloWorld from '@/components/HelloWorld.vue';
+/*
+ *import { shallowMount } from '@vue/test-utils';
+ * import ExampleSubComponent from '../../src/components/ExampleSubComponent.vue';
+ */
 
-describe('HelloWorld.vue', () => {
-  it('renders props.msg when passed', () => {
-    const msg = 'new message';
-    const wrapper = shallowMount(HelloWorld, {
-      propsData: { msg },
-    });
-    expect(wrapper.text()).toMatch(msg);
-  });
+describe('ExampleSubComponent.vue', () => {
+	it('renders post data when passed', () => {
+		/*
+		 * const rss = [{ id: '1', title: 'My Title', body: 'lorem ipsum' }];
+		 * const wrapper = shallowMount(ExampleSubComponent, {
+		 * 		propsData: { rss },
+		 * });
+		 *
+		 * expect(wrapper.html()).toEqual(expect.stringContaining(rss[0].title));
+		 */
+	});
 });

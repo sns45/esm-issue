@@ -1,0 +1,9 @@
+node_modules/
+Dockerfile
+Dockerfile.dev
+Dockerfile.feature
+README.md
+tests/
+cypress.json
+.gitignore
+.ENV

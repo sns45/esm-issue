@@ -1,32 +1,31 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+	<div id="app">
+		<h1>Edit this App.vue file</h1>
+		<MyComponent :page-data="RssData"/>
+	</div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
 
-#nav {
-  padding: 30px;
+import MyComponent from './Component.vue';
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+export default {
+	components: {
+		MyComponent
+	},
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>
+
+	 asyncData({ store }) {
+	 return store.dispatch('getPosts');
+	 },
+
+
+	computed: {
+
+		RssData() {
+		    return this.$store.state.posts;
+		},
+
+	},
+};
+</script>
